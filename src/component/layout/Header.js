@@ -50,6 +50,7 @@ const useStyles = {
         display: "flex",
         alignItems: "center",
         width: StyledTheme.spacing * 30,
+        marginLeft: StyledTheme.spacing * 3,
     },
     title: {
         fontSize: StyledTheme.spacing * 3,

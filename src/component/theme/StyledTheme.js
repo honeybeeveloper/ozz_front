@@ -5,6 +5,9 @@ const StyledTheme = {
             height: 50,
             headerColor: '#f3ece5',
         },
+        section: {
+            headerColor: '#5bc4ca',
+        },
         button: {
             backgroundColor: '#c1c1c1',
             hoverButtonColor: '#d4d3d1',

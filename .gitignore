@@ -25,3 +25,6 @@ yarn-error.log*
 # Pycharm IDE
 /.idea
 *.idea
+
+# text file
+*.txt

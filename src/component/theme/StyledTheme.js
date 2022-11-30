@@ -14,11 +14,14 @@ const StyledTheme = {
       labelColor: "#1e1e1e",
       labelSize: 16,
     },
+    material: {
+      backgroundColor: "#5bc4ca",
+      border: "1px solid #c6c6c6",
+    },
   },
   variables: {
     fontSize: 14,
     titleDivHeight: 300,
-    contentDivWidth: 1500,
   },
   muiTheme: {
     overrides: {

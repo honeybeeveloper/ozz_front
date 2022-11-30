@@ -1,12 +1,12 @@
 import React from "react";
-import { Grid } from "@mui/material";
 import StyledTheme from "../theme/StyledTheme";
+import Mission from "../../view/mission/mission";
 
 
 function Section() {
     return (
         <div className="root" style={useStyles.root}>
-
+            <Mission />
         </div>
     );
 }
@@ -14,7 +14,7 @@ function Section() {
 const useStyles = {
     root: {
         height: `calc(100vh - ${StyledTheme.base.header.height}px)`,
-        backgroundColor: StyledTheme.base.section.headerColor,
+        backgroundColor: StyledTheme.base.section.backgroundColor,
     },
 }
 

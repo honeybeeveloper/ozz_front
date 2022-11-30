@@ -58,7 +58,7 @@ const useStyles = {
     },
     buttonDiv:{
         display: "flex",
-        justifyContent: "center",
+        alignItems: "center",
     },
     icon: {
         fontSize: StyledTheme.spacing * 4,

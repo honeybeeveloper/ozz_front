@@ -1,22 +1,27 @@
 import React from "react";
 import PropTypes from "prop-types";
 import StyledTheme from "./theme/StyledTheme";
+import { IconButton } from "@mui/material";
 
 function Material(props) {
-  const { name } = props;
+  const { name, isButton } = props;
 
   return (
     <div className="root" style={useStyles.root}>
-      <div className="name" style={useStyles.name}>
-        {name}
+      <div className="nameDiv" style={useStyles.nameDiv}>
+        <label className="nameLabel" style={useStyles.nameLabel}>
+          {name}
+        </label>
       </div>
-      <div className="icon" style={useStyles.icon}>
-        <img
-          className="iconImg"
-          style={useStyles.iconImg}
-          src={process.env.PUBLIC_URL + "/icons/csv_icon.png"}
-          alt="icon"
-        />
+      <div className="iconDiv" style={useStyles.iconDiv}>
+        <IconButton disabled={!isButton}>
+          <img
+            className="iconImg"
+            style={useStyles.iconImg}
+            src={process.env.PUBLIC_URL + "/icons/csv_icon.png"}
+            alt="icon"
+          />
+        </IconButton>
       </div>
     </div>
   );
@@ -24,17 +29,43 @@ function Material(props) {
 
 Material.propTypes = {
   name: PropTypes.string.isRequired,
+  isButton: PropTypes.bool.isRequired,
 };
 
 const useStyles = {
   root: {
-    height: "50px",
-    width: "100px",
+    // height: StyledTheme.spacing * 20,
+    width: StyledTheme.spacing * 30,
     backgroundColor: StyledTheme.base.header.headerColor,
-    border: "1px solid red",
+    border: StyledTheme.base.material.border,
   },
-  name: {},
-  icon: {},
+  nameDiv: {
+    marginTop: StyledTheme.spacing,
+    marginRight: StyledTheme.spacing,
+    marginBottom: StyledTheme.spacing,
+    marginLeft: StyledTheme.spacing,
+    border: StyledTheme.base.material.border,
+    backgroundColor: StyledTheme.base.section.backgroundColor,
+  },
+  nameLabel: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    fontSize: StyledTheme.spacing * 2.5,
+    fontWeight: "bold",
+    color: "white",
+  },
+  iconDiv: {
+    display: "flex",
+    justifyContent: "center",
+    marginTop: StyledTheme.spacing,
+    marginRight: StyledTheme.spacing,
+    marginBottom: StyledTheme.spacing,
+    marginLeft: StyledTheme.spacing,
+    paddingTop: StyledTheme.spacing,
+    paddingBottom: StyledTheme.spacing,
+    border: StyledTheme.base.material.border,
+  },
   iconImg: {
     width: StyledTheme.spacing * 7,
   },

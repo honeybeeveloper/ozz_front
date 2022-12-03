@@ -36,7 +36,7 @@ const useStyles = {
   root: {
     // height: StyledTheme.spacing * 20,
     width: StyledTheme.spacing * 30,
-    backgroundColor: StyledTheme.base.header.headerColor,
+    backgroundColor: StyledTheme.base.section.backgroundColor,
     border: StyledTheme.base.material.border,
   },
   nameDiv: {
@@ -45,13 +45,13 @@ const useStyles = {
     marginBottom: StyledTheme.spacing,
     marginLeft: StyledTheme.spacing,
     border: StyledTheme.base.material.border,
-    backgroundColor: StyledTheme.base.section.backgroundColor,
+    backgroundColor: StyledTheme.base.header.headerColor,
   },
   nameLabel: {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    fontSize: StyledTheme.spacing * 2.5,
+    fontSize: StyledTheme.variables.fontSize,
     fontWeight: "bold",
     color: "white",
   },

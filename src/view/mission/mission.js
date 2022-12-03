@@ -1,6 +1,7 @@
 import React from "react";
-import Material from "../../component/material";
-import StyledTheme from "../../component/theme/StyledTheme";
+import KnowhowDiv from "../../components/div/KnowhowDiv";
+import MaterialDiv from "../../components/div/MaterialDiv";
+import StyledTheme from "../../components/theme/StyledTheme";
 
 function Mission() {
   return (
@@ -11,11 +12,14 @@ function Mission() {
         </label>
         <label className="missionInfo" style={useStyles.missionInfo}>
           수많은 데이터가 축적되고 데이터를 활용하는 인공지능 기술도 좋아지면서
-          고객의 관심과 니즈를 파악하는 맥락적 고객 경험의 시대가 왔습니다.{" "}
+          <br />
+          고객의 관심과 니즈를 파악하는 맥락적 고객 경험의 시대가 왔습니다.
           <br />
           한 명의 고객에게도 시간과 장소를 같이 하는 사람에 따라 맥락을 다르게
-          봐야하는 시대입니다. <br />
-          이 미션은 고객 데이터를 딥러닝 기반 클러스터링(Clustering, 군집화 )
+          봐야하는 시대입니다.
+          <br />
+          <br />
+          이 미션은 고객 데이터를 딥러닝 기반 클러스터링(Clustering, 군집화)
           기법을 통해 다양한 마이크로 세그먼트로 분류합니다.
           <br />
           빅데이터로 여러 다양한 페르소나를 한꺼번에 찾아내고, 각각의 맥락에
@@ -24,16 +28,11 @@ function Mission() {
           <br />
         </label>
       </div>
-      <div className="contentDiv" style={useStyles.contentDiv}>
-        <div className="materialDiv" style={useStyles.materialDiv}>
-          <Material name="데이터" isButton={true}></Material>
-        </div>
-        <div className="materialDiv" style={useStyles.materialDiv}>
-          <Material name="데이터" isButton={false}></Material>
-        </div>
-        <div className="materialDiv" style={useStyles.materialDiv}>
-          <Material name="데이터" isButton={false}></Material>
-        </div>
+      <div className="materialDiv" style={useStyles.materialDiv}>
+        <MaterialDiv></MaterialDiv>
+      </div>
+      <div className="knowhowDiv" style={useStyles.knowhowDiv}>
+        <KnowhowDiv></KnowhowDiv>
       </div>
     </div>
   );
@@ -42,18 +41,16 @@ function Mission() {
 const useStyles = {
   root: {
     height: `calc(100vh - ${StyledTheme.base.header.height}px - 30px)`,
-    backgroundColor: StyledTheme.base.header.headerColor,
   },
   titleDiv: {
     display: "grid",
     height: StyledTheme.variables.titleDivHeight,
-    backgroundColor: StyledTheme.base.section.backgroundColor,
   },
   missionTitle: {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    fontSize: StyledTheme.spacing * 5,
+    fontSize: StyledTheme.spacing * 7,
     fontWeight: "bold",
   },
   missionInfo: {
@@ -66,14 +63,15 @@ const useStyles = {
     lineHeight: 2,
     fontWeight: "bold",
   },
-  contentDiv: {
+  materialDiv: {
     display: "flex",
     justifyContent: "center",
     marginTop: StyledTheme.spacing * 3,
   },
-  materialDiv: {
-    marginLeft: StyledTheme.spacing * 3,
-    marginRight: StyledTheme.spacing * 3,
+  knowhowDiv: {
+    display: "flex",
+    justifyContent: "center",
+    marginTop: StyledTheme.spacing * 10,
   },
 };
 

@@ -2,7 +2,7 @@ const StyledTheme = {
   spacing: 8,
   base: {
     header: {
-      height: 50,
+      height: 70,
       headerColor: "#5bc4ca",
     },
     section: {

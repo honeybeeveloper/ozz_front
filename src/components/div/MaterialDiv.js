@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import Material from "../Material";
+import Material from "../component/Material";
 import StyledTheme from "../theme/StyledTheme";
 
 function MaterialDiv() {

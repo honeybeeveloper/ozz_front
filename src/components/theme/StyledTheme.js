@@ -3,16 +3,15 @@ const StyledTheme = {
   base: {
     header: {
       height: 50,
-      headerColor: "#f3ece5",
+      headerColor: "#5bc4ca",
     },
     section: {
-      backgroundColor: "#5bc4ca",
+      backgroundColor: "#f3ece5",
     },
     button: {
       backgroundColor: "#c1c1c1",
       hoverButtonColor: "#d4d3d1",
       labelColor: "#1e1e1e",
-      labelSize: 16,
     },
     material: {
       backgroundColor: "#5bc4ca",
@@ -20,8 +19,10 @@ const StyledTheme = {
     },
   },
   variables: {
-    fontSize: 14,
-    titleDivHeight: 300,
+    fontSize: 20,
+    titleDivHeight: 400,
+    maxknowhowDivWidth: 1100,
+    maxknowhowDivHeight: 250,
   },
   muiTheme: {
     overrides: {

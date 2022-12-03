@@ -12,7 +12,7 @@ function Header() {
             Lab4DX
           </label>
         </div>
-        <div className="buttonDiv" style={useStyles.buttonDiv}>
+        {/* <div className="buttonDiv" style={useStyles.buttonDiv}>
           <div>
             <IconButton>
               <Widgets className="icon" style={useStyles.icon} />
@@ -28,7 +28,7 @@ function Header() {
               <Widgets className="icon" style={useStyles.icon} />
             </IconButton>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );
@@ -53,6 +53,7 @@ const useStyles = {
   title: {
     fontSize: StyledTheme.spacing * 3,
     fontWeight: "bold",
+    color: StyledTheme.base.section.backgroundColor,
   },
   buttonDiv: {
     display: "flex",

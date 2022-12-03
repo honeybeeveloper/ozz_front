@@ -12,7 +12,7 @@ function Section() {
 
 const useStyles = {
   root: {
-    height: `calc(100vh - ${StyledTheme.base.header.height}px)`,
+    // height: `calc(100vh - ${StyledTheme.base.header.height}px)`,
     backgroundColor: StyledTheme.base.section.backgroundColor,
   },
 };

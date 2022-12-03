@@ -5,7 +5,7 @@ import StyledTheme from "../theme/StyledTheme";
 function Knowhow(props) {
   return (
     <div className="root" style={useStyles.root}>
-      <div className="ThumbnailDiv" style={useStyles.nameDiv}>
+      <div className="ThumbnailDiv" style={useStyles.ThumbnailDiv}>
         <img
           className="thumbnail"
           style={useStyles.thumbnail}

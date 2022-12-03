@@ -1,6 +1,7 @@
 import React from "react";
 import KnowhowDiv from "../../components/div/KnowhowDiv";
 import MaterialDiv from "../../components/div/MaterialDiv";
+import QuestDiv from "../../components/div/QuestDiv";
 import StyledTheme from "../../components/theme/StyledTheme";
 
 function Mission() {
@@ -34,13 +35,16 @@ function Mission() {
       <div className="knowhowDiv" style={useStyles.knowhowDiv}>
         <KnowhowDiv></KnowhowDiv>
       </div>
+      <div className="questDiv" style={useStyles.questDiv}>
+        <QuestDiv></QuestDiv>
+      </div>
     </div>
   );
 }
 
 const useStyles = {
   root: {
-    height: `calc(100vh - ${StyledTheme.base.header.height}px - 30px)`,
+    marginBottom: StyledTheme.spacing * 5,
   },
   titleDiv: {
     display: "grid",
@@ -69,6 +73,11 @@ const useStyles = {
     marginTop: StyledTheme.spacing * 3,
   },
   knowhowDiv: {
+    display: "flex",
+    justifyContent: "center",
+    marginTop: StyledTheme.spacing * 10,
+  },
+  questDiv: {
     display: "flex",
     justifyContent: "center",
     marginTop: StyledTheme.spacing * 10,

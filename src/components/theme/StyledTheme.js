@@ -6,9 +6,12 @@ const StyledTheme = {
       headerColor: "#5bc4ca",
     },
     section: {
-      backgroundColor: "#f3ece5",
+      // backgroundColor: "#f3ece5",
+      backgroundColor: "#ffffff",
     },
     button: {
+      width: "100px",
+      // height: "40px",
       backgroundColor: "#c1c1c1",
       hoverButtonColor: "#d4d3d1",
       labelColor: "#1e1e1e",

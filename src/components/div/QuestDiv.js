@@ -29,9 +29,13 @@ function QuestDiv() {
       >
         <Table className="table" style={useStyles.table}>
           <TableBody>
-            <TableRow className="tableRow" style={useStyles.tableRow}>
-              <TableCell>
-                {arr.map(() => (
+            {arr.map((index) => (
+              <TableRow
+                className="tableRow"
+                style={useStyles.tableRow}
+                key={index}
+              >
+                <TableCell>
                   <div className="quest" style={useStyles.quest}>
                     <div className="statusDiv" style={useStyles.statusDiv}>
                       <ArrowForwardIcon></ArrowForwardIcon>
@@ -40,9 +44,9 @@ function QuestDiv() {
                       <Quest></Quest>
                     </div>
                   </div>
-                ))}
-              </TableCell>
-            </TableRow>
+                </TableCell>
+              </TableRow>
+            ))}
           </TableBody>
         </Table>
       </TableContainer>
@@ -71,16 +75,14 @@ const useStyles = {
   questContainer: {
     height: "640px",
   },
-  quest: { display: "flex", marginTop: StyledTheme.spacing },
+  quest: { display: "flex" },
   statusDiv: {
     display: "flex",
     alignItems: "center",
     marginLeft: StyledTheme.spacing,
     marginRight: StyledTheme.spacing,
   },
-  qDiv: {
-    marginRight: StyledTheme.spacing * 1,
-  },
+  qDiv: {},
 };
 
 export default QuestDiv;

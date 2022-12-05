@@ -62,12 +62,10 @@ const useStyles = {
     marginRight: StyledTheme.spacing,
     marginBottom: StyledTheme.spacing,
     marginLeft: StyledTheme.spacing,
-    paddingTop: StyledTheme.spacing,
-    paddingBottom: StyledTheme.spacing,
     border: StyledTheme.base.material.border,
   },
   iconImg: {
-    width: StyledTheme.spacing * 7,
+    width: StyledTheme.spacing * 5,
   },
 };
 

@@ -5,7 +5,7 @@ import Mission from "../../view/mission/mission";
 function Section() {
   return (
     <div className="root" style={useStyles.root}>
-      <Mission />
+      <Mission missionType="persona" />
     </div>
   );
 }

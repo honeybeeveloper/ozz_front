@@ -12,19 +12,21 @@ import StyledTheme from "../../components/theme/StyledTheme";
 
 function Mission(props) {
   const { missionType } = props;
+  const [missionId, setMissionId] = useState(0);
   const [missionTitle, setMissionTitle] = useState("");
   const [missionDesc, setMissionDesc] = useState("");
 
   useEffect(() => {
     const mission = mapMissionType(missionType);
     getMissionInfo(mission);
-  }, []);
+  }, [missionType]);
 
   // get mission info
   const getMissionInfo = (mission) => {
     axios
       .get(appConfig.apiRoot + "/mission/" + mission)
       .then((response) => {
+        setMissionId(response.data.id);
         setMissionTitle(response.data.title);
         setMissionDesc(response.data.description);
       })
@@ -46,7 +48,7 @@ function Mission(props) {
         ></label>
       </div>
       <div className="materialDiv" style={useStyles.materialDiv}>
-        <MaterialDiv></MaterialDiv>
+        <MaterialDiv missionId={missionId}></MaterialDiv>
       </div>
       <div className="knowhowDiv" style={useStyles.knowhowDiv}>
         <KnowhowDiv></KnowhowDiv>

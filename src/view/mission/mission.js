@@ -1,36 +1,54 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import PropTypes from "prop-types";
+
+import appConfig from "../../common/AppConfig";
+import { mapMissionType } from "../../common/util";
+import { onAxiosError } from "../../common/Error";
 import KnowhowDiv from "../../components/div/KnowhowDiv";
 import MaterialDiv from "../../components/div/MaterialDiv";
 import QuestDiv from "../../components/div/QuestDiv";
 import StyledTheme from "../../components/theme/StyledTheme";
 
-function Mission() {
+function Mission(props) {
+  const { missionType } = props;
+  const [missionId, setMissionId] = useState(0);
+  const [missionTitle, setMissionTitle] = useState("");
+  const [missionDesc, setMissionDesc] = useState("");
+
+  useEffect(() => {
+    const mission = mapMissionType(missionType);
+    getMissionInfo(mission);
+  }, [missionType]);
+
+  // get mission info
+  const getMissionInfo = (mission) => {
+    axios
+      .get(appConfig.apiRoot + "/mission/" + mission)
+      .then((response) => {
+        setMissionId(response.data.id);
+        setMissionTitle(response.data.title);
+        setMissionDesc(response.data.description);
+      })
+      .catch((error) => {
+        onAxiosError(error);
+      });
+  };
+
   return (
     <div className="root" style={useStyles.root}>
       <div className="titleDiv" style={useStyles.titleDiv}>
         <label className="missionTitle" style={useStyles.missionTitle}>
-          Persona(페르소나) 분석
+          {missionTitle}
         </label>
-        <label className="missionInfo" style={useStyles.missionInfo}>
-          수많은 데이터가 축적되고 데이터를 활용하는 인공지능 기술도 좋아지면서
-          <br />
-          고객의 관심과 니즈를 파악하는 맥락적 고객 경험의 시대가 왔습니다.
-          <br />
-          한 명의 고객에게도 시간과 장소를 같이 하는 사람에 따라 맥락을 다르게
-          봐야하는 시대입니다.
-          <br />
-          <br />
-          이 미션은 고객 데이터를 딥러닝 기반 클러스터링(Clustering, 군집화)
-          기법을 통해 다양한 마이크로 세그먼트로 분류합니다.
-          <br />
-          빅데이터로 여러 다양한 페르소나를 한꺼번에 찾아내고, 각각의 맥락에
-          대해 데이터가 리얼하게 보여주며 수치로 증명하여 객관성을 갖도록
-          합니다.
-          <br />
-        </label>
+        <label
+          className="missionInfo"
+          style={useStyles.missionInfo}
+          dangerouslySetInnerHTML={{ __html: missionDesc }}
+        ></label>
       </div>
       <div className="materialDiv" style={useStyles.materialDiv}>
-        <MaterialDiv></MaterialDiv>
+        <MaterialDiv missionId={missionId}></MaterialDiv>
       </div>
       <div className="knowhowDiv" style={useStyles.knowhowDiv}>
         <KnowhowDiv></KnowhowDiv>
@@ -41,6 +59,10 @@ function Mission() {
     </div>
   );
 }
+
+Mission.propTypes = {
+  missionType: PropTypes.string.isRequired,
+};
 
 const useStyles = {
   root: {

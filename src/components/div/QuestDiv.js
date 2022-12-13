@@ -5,8 +5,17 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 
 import StyledTheme from "../theme/StyledTheme";
 import Quest from "../component/Quest";
+import {
+  Table,
+  TableContainer,
+  TableBody,
+  TableRow,
+  TableCell,
+} from "@mui/material";
 
 function QuestDiv() {
+  const arr = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
   return (
     <div className="root" style={useStyles.root}>
       <div className="titleDiv" style={useStyles.titleDiv}>
@@ -14,48 +23,33 @@ function QuestDiv() {
           {"퀘스트"}
         </label>
       </div>
-      <div className="questsDiv" style={useStyles.questsDiv}>
-        <div className="quest" style={useStyles.quest}>
-          <div className="statusDiv" style={useStyles.statusDiv}>
-            <ArrowForwardIcon></ArrowForwardIcon>
-          </div>
-          <div className="qDiv" style={useStyles.qDiv}>
-            <Quest></Quest>
-          </div>
-        </div>
-        <div className="quest" style={useStyles.quest}>
-          <div className="statusDiv" style={useStyles.statusDiv}>
-            <ArrowForwardIcon></ArrowForwardIcon>
-          </div>
-          <div className="qDiv" style={useStyles.qDiv}>
-            <Quest></Quest>
-          </div>
-        </div>
-        <div className="quest" style={useStyles.quest}>
-          <div className="statusDiv" style={useStyles.statusDiv}>
-            <ArrowForwardIcon></ArrowForwardIcon>
-          </div>
-          <div className="qDiv" style={useStyles.qDiv}>
-            <Quest></Quest>
-          </div>
-        </div>
-        <div className="quest" style={useStyles.quest}>
-          <div className="statusDiv" style={useStyles.statusDiv}>
-            <ArrowForwardIcon></ArrowForwardIcon>
-          </div>
-          <div className="qDiv" style={useStyles.qDiv}>
-            <Quest></Quest>
-          </div>
-        </div>
-        <div className="quest" style={useStyles.quest}>
-          <div className="statusDiv" style={useStyles.statusDiv}>
-            <ArrowForwardIcon></ArrowForwardIcon>
-          </div>
-          <div className="qDiv" style={useStyles.qDiv}>
-            <Quest></Quest>
-          </div>
-        </div>
-      </div>
+      <TableContainer
+        className="questContainer"
+        style={useStyles.questContainer}
+      >
+        <Table className="table" style={useStyles.table}>
+          <TableBody>
+            {arr.map((index) => (
+              <TableRow
+                className="tableRow"
+                style={useStyles.tableRow}
+                key={index}
+              >
+                <TableCell>
+                  <div className="quest" style={useStyles.quest}>
+                    <div className="statusDiv" style={useStyles.statusDiv}>
+                      <ArrowForwardIcon></ArrowForwardIcon>
+                    </div>
+                    <div className="qDiv" style={useStyles.qDiv}>
+                      <Quest></Quest>
+                    </div>
+                  </div>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
     </div>
   );
 }
@@ -67,6 +61,7 @@ const useStyles = {
   titleDiv: {
     display: "flex",
     justifyContent: "center",
+    marginTop: StyledTheme.spacing,
   },
   title: {
     textAlign: "center",
@@ -77,6 +72,9 @@ const useStyles = {
     marginTop: StyledTheme.spacing * 2,
     marginBottom: StyledTheme.spacing * 2,
   },
+  questContainer: {
+    height: "640px",
+  },
   quest: { display: "flex" },
   statusDiv: {
     display: "flex",
@@ -84,9 +82,7 @@ const useStyles = {
     marginLeft: StyledTheme.spacing,
     marginRight: StyledTheme.spacing,
   },
-  qDiv: {
-    marginRight: StyledTheme.spacing * 1,
-  },
+  qDiv: {},
 };
 
 export default QuestDiv;

@@ -14,7 +14,7 @@ const StyledTheme = {
       // height: "40px",
       backgroundColor: "#c1c1c1",
       hoverButtonColor: "#d4d3d1",
-      labelColor: "#1e1e1e",
+      labelColor: "#ffffff",
     },
     material: {
       backgroundColor: "#5bc4ca",

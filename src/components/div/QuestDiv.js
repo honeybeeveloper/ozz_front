@@ -1,10 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import PropTypes from "prop-types";
 
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-
-import StyledTheme from "../theme/StyledTheme";
-import Quest from "../component/Quest";
 import {
   Table,
   TableContainer,
@@ -13,8 +11,35 @@ import {
   TableCell,
 } from "@mui/material";
 
-function QuestDiv() {
-  const arr = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+import StyledTheme from "../theme/StyledTheme";
+import Quest from "../component/Quest";
+import appConfig from "../../common/AppConfig";
+import { onAxiosError } from "../../common/Error";
+
+function QuestDiv(props) {
+  const { missionId } = props;
+  const [quests, setQuests] = useState([]);
+
+  useEffect(() => {
+    if (missionId > 0) {
+      getQuests(missionId);
+    }
+  }, [missionId]);
+
+  const getQuests = (missionId) => {
+    axios
+      .get(appConfig.apiRoot + "/quest/mission-quests", {
+        params: {
+          mission_id: missionId,
+        },
+      })
+      .then((response) => {
+        setQuests(response.data.quests);
+      })
+      .catch((error) => {
+        onAxiosError(error);
+      });
+  };
 
   return (
     <div className="root" style={useStyles.root}>
@@ -29,11 +54,11 @@ function QuestDiv() {
       >
         <Table className="table" style={useStyles.table}>
           <TableBody>
-            {arr.map((index) => (
+            {quests.map((data) => (
               <TableRow
                 className="tableRow"
                 style={useStyles.tableRow}
-                key={index}
+                key={data.id}
               >
                 <TableCell>
                   <div className="quest" style={useStyles.quest}>
@@ -41,7 +66,7 @@ function QuestDiv() {
                       <ArrowForwardIcon></ArrowForwardIcon>
                     </div>
                     <div className="qDiv" style={useStyles.qDiv}>
-                      <Quest></Quest>
+                      <Quest data={data}></Quest>
                     </div>
                   </div>
                 </TableCell>
@@ -54,7 +79,9 @@ function QuestDiv() {
   );
 }
 
-QuestDiv.propTypes = {};
+QuestDiv.propTypes = {
+  missionId: PropTypes.number.isRequired,
+};
 
 const useStyles = {
   root: { border: "1px solid black" },

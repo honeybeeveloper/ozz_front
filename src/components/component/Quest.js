@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
@@ -7,22 +7,28 @@ import StyledTheme from "../theme/StyledTheme";
 import QuestButton from "../button/QuestButton";
 import StyledButton from "../button/StyledButton";
 
-function Quest() {
-  const questId = "RT1QA-001";
-  const sampleTitle = "전처리 데이터 가져오기";
-  const sampleInfo =
-    "1. 크롤링과 전처리를 통해 만들어진 CSV 파일의 위치를 확인합니다.(File Check 버튼) <br /> 2. CSV 파일을 열어 (Excel, Numbers 등) 컬럼 정보를 확인합니다.<br />&nbsp;&nbsp;&nbsp;&nbsp; : [필수] doc, ad [선택] index, time, review, comment, like, url <br />3. doc 컬럼의 데이터 형식을 확인합니다.<br />&nbsp;&nbsp;&nbsp;&nbsp; : 예시) ['단편', '가르침', '김준면', '선생님', '열정' '책임감']";
+function Quest(props) {
+  const { data } = props;
+  const [existLinkQuestCd, setExistLinkQuestCd] = useState(false);
+
+  useEffect(() => {
+    setExistLinkQuestCd(!Object.is(data.link_quest_cd, null));
+  }, []);
 
   return (
     <div className="root" style={useStyles.root}>
       <div className="leftDiv" style={useStyles.leftDiv}>
         <div className="questTitleDiv" style={useStyles.questTitleDiv}>
           <div className="idDiv" style={useStyles.idDiv}>
-            <QuestButton name={questId} disabled={true}></QuestButton>
+            <QuestButton
+              name={data.quest_cd}
+              disabled={true}
+              isMain={true}
+            ></QuestButton>
           </div>
           <div className="titleDiv" style={useStyles.titleDiv}>
             <label className="title" style={useStyles.title}>
-              {sampleTitle}
+              {data.quest_name}
             </label>
           </div>
           <div className="stampDiv" style={useStyles.stampDiv}>
@@ -32,10 +38,21 @@ function Quest() {
         <div
           className="questTitleInfoDiv"
           style={useStyles.questTitleInfoDiv}
-          dangerouslySetInnerHTML={{ __html: sampleInfo }}
+          dangerouslySetInnerHTML={{ __html: data.description }}
         ></div>
-        <div className="questButtonDiv" style={useStyles.buttonDiv}>
-          <QuestButton name={questId} disabled={false}></QuestButton>
+        <div
+          className="questButtonDiv"
+          style={
+            existLinkQuestCd ? useStyles.buttonDiv : useStyles.buttonDivEnd
+          }
+        >
+          {existLinkQuestCd && (
+            <QuestButton
+              name={data.link_quest_cd}
+              disabled={!existLinkQuestCd}
+              isMain={false}
+            ></QuestButton>
+          )}
           <div className="funcButtonDiv" style={useStyles.funcButtonDiv}>
             <StyledButton name={"File Check"} disabled={false}></StyledButton>
             <StyledButton name={"Detail Info"} disabled={false}></StyledButton>
@@ -47,7 +64,7 @@ function Quest() {
           <img
             className="thumbnail"
             style={useStyles.thumbnail}
-            src={process.env.PUBLIC_URL + "/images/knowhow.jpg"}
+            src={process.env.PUBLIC_URL + data.thumbnail_path}
             alt="icon"
           />
         </div>
@@ -56,15 +73,23 @@ function Quest() {
   );
 }
 
-Quest.propTypes = {};
+Quest.propTypes = { data: PropTypes.object.isRequired };
 
 const useStyles = {
   root: {
     display: "flex",
     border: StyledTheme.base.material.border,
   },
-  leftDiv: {},
-  rightDiv: { display: "flex" },
+  leftDiv: {
+    width: StyledTheme.spacing * 75,
+    marginLeft: StyledTheme.spacing,
+    marginRight: StyledTheme.spacing,
+  },
+  rightDiv: {
+    display: "flex",
+    marginLeft: StyledTheme.spacing,
+    marginRight: StyledTheme.spacing,
+  },
   questTitleDiv: {
     display: "flex",
     paddingTop: StyledTheme.spacing,
@@ -101,6 +126,14 @@ const useStyles = {
     paddingBottom: StyledTheme.spacing,
     paddingLeft: StyledTheme.spacing,
   },
+  buttonDivEnd: {
+    display: "flex",
+    justifyContent: "end",
+    paddingTop: StyledTheme.spacing,
+    paddingRight: StyledTheme.spacing,
+    paddingBottom: StyledTheme.spacing,
+    paddingLeft: StyledTheme.spacing,
+  },
   funcButtonDiv: {
     display: "flex",
   },
@@ -108,7 +141,9 @@ const useStyles = {
     display: "flex",
     alignItems: "center",
   },
-  thumbnail: { width: StyledTheme.spacing * 30 },
+  thumbnail: {
+    width: StyledTheme.spacing * 30,
+  },
 };
 
 export default Quest;

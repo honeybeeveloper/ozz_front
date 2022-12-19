@@ -18,6 +18,7 @@ import { onAxiosError } from "../../common/Error";
 
 function QuestDiv(props) {
   const { missionId } = props;
+  const [ongoingQuestId, setOngoingQuestId] = useState(0);
   const [quests, setQuests] = useState([]);
 
   useEffect(() => {
@@ -25,6 +26,13 @@ function QuestDiv(props) {
       getQuests(missionId);
     }
   }, [missionId]);
+
+  // quest 바뀔 때마다
+  useEffect(() => {
+    if (missionId > 0) {
+      getOngoingQuest(missionId);
+    }
+  });
 
   const getQuests = (missionId) => {
     axios
@@ -35,6 +43,23 @@ function QuestDiv(props) {
       })
       .then((response) => {
         setQuests(response.data.quests);
+      })
+      .catch((error) => {
+        onAxiosError(error);
+      });
+  };
+
+  const getOngoingQuest = (missionId) => {
+    axios
+      .get(appConfig.apiRoot + "/user/user-ongoing", {
+        params: {
+          user_id: 1,
+          mission_id: missionId,
+        },
+      })
+      .then((response) => {
+        console.log(response.data);
+        setOngoingQuestId(response.data.quest_id);
       })
       .catch((error) => {
         onAxiosError(error);
@@ -57,7 +82,11 @@ function QuestDiv(props) {
             {quests.map((data) => (
               <TableRow
                 className="tableRow"
-                style={useStyles.tableRow}
+                style={
+                  data.id === ongoingQuestId
+                    ? useStyles.tableRow
+                    : useStyles.ongoingTableRow
+                }
                 key={data.id}
               >
                 <TableCell>
@@ -66,7 +95,10 @@ function QuestDiv(props) {
                       <ArrowForwardIcon></ArrowForwardIcon>
                     </div>
                     <div className="qDiv" style={useStyles.qDiv}>
-                      <Quest data={data}></Quest>
+                      <Quest
+                        data={data}
+                        ongoing={data.id === ongoingQuestId}
+                      ></Quest>
                     </div>
                   </div>
                 </TableCell>
@@ -101,6 +133,12 @@ const useStyles = {
   },
   questContainer: {
     height: "640px",
+  },
+  tableRow: {
+    backgroundColor: "rgba(21, 211, 209, 0.1)",
+  },
+  ongoingTableRow: {
+    // backgroundColor: "rgba(21, 211, 209, 0.5)",
   },
   quest: { display: "flex" },
   statusDiv: {

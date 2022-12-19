@@ -6,14 +6,20 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import StyledTheme from "../theme/StyledTheme";
 import QuestButton from "../button/QuestButton";
 import StyledButton from "../button/StyledButton";
+import { IconButton } from "@mui/material";
 
 function Quest(props) {
-  const { data } = props;
+  const { data, ongoing } = props;
   const [existLinkQuestCd, setExistLinkQuestCd] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
 
   useEffect(() => {
     setExistLinkQuestCd(!Object.is(data.link_quest_cd, null));
   }, []);
+
+  const onHandleQuest = (event) => {
+    setIsSuccess(!isSuccess);
+  };
 
   return (
     <div className="root" style={useStyles.root}>
@@ -31,9 +37,24 @@ function Quest(props) {
               {data.quest_name}
             </label>
           </div>
-          <div className="stampDiv" style={useStyles.stampDiv}>
-            <CheckCircleIcon />
-          </div>
+          {ongoing && (
+            <div className="stampDiv" style={useStyles.stampDiv}>
+              <IconButton
+                className="checkButton"
+                style={
+                  isSuccess
+                    ? useStyles.successCheckButton
+                    : useStyles.checkButton
+                }
+                onClick={onHandleQuest}
+              >
+                <CheckCircleIcon
+                  className="checkCircleIcon"
+                  style={useStyles.checkCircleIcon}
+                />
+              </IconButton>
+            </div>
+          )}
         </div>
         <div
           className="questTitleInfoDiv"
@@ -73,7 +94,10 @@ function Quest(props) {
   );
 }
 
-Quest.propTypes = { data: PropTypes.object.isRequired };
+Quest.propTypes = {
+  data: PropTypes.object.isRequired,
+  ongoing: PropTypes.bool.isRequired,
+};
 
 const useStyles = {
   root: {
@@ -111,6 +135,15 @@ const useStyles = {
   stampDiv: {
     display: "flex",
     alignItems: "center",
+  },
+  checkButton: {
+    color: "grey",
+  },
+  successCheckButton: {
+    color: "pink",
+  },
+  checkCircleIcon: {
+    fontSize: StyledTheme.spacing * 3,
   },
   questTitleInfoDiv: {
     paddingTop: StyledTheme.spacing,

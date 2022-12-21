@@ -18,21 +18,16 @@ import { onAxiosError } from "../../common/Error";
 
 function QuestDiv(props) {
   const { missionId } = props;
-  const [ongoingQuestId, setOngoingQuestId] = useState(0);
   const [quests, setQuests] = useState([]);
+  const [showingOrder, setShowingOrder] = useState(1);
+  const [ongoingQuestId, setOngoingQuestId] = useState(0);
 
   useEffect(() => {
-    if (missionId > 0) {
+    if (missionId > 0 && ongoingQuestId === 0) {
       getQuests(missionId);
-    }
-  }, [missionId]);
-
-  // quest 바뀔 때마다
-  useEffect(() => {
-    if (missionId > 0) {
       getOngoingQuest(missionId);
     }
-  });
+  }, [missionId, ongoingQuestId]);
 
   const getQuests = (missionId) => {
     axios
@@ -58,7 +53,6 @@ function QuestDiv(props) {
         },
       })
       .then((response) => {
-        console.log(response.data);
         setOngoingQuestId(response.data.quest_id);
       })
       .catch((error) => {
@@ -79,31 +73,37 @@ function QuestDiv(props) {
       >
         <Table className="table" style={useStyles.table}>
           <TableBody>
-            {quests.map((data) => (
-              <TableRow
-                className="tableRow"
-                style={
-                  data.id === ongoingQuestId
-                    ? useStyles.tableRow
-                    : useStyles.ongoingTableRow
-                }
-                key={data.id}
-              >
-                <TableCell>
-                  <div className="quest" style={useStyles.quest}>
-                    <div className="statusDiv" style={useStyles.statusDiv}>
-                      <ArrowForwardIcon></ArrowForwardIcon>
+            {quests
+              .filter((data) => data.quest_order <= showingOrder)
+              .map((data, index) => (
+                <TableRow
+                  className="tableRow"
+                  key={data.id}
+                  style={
+                    data.id === ongoingQuestId
+                      ? useStyles.tableRow
+                      : useStyles.ongoingTableRow
+                  }
+                >
+                  <TableCell>
+                    <div className="quest" style={useStyles.quest}>
+                      <div className="statusDiv" style={useStyles.statusDiv}>
+                        <ArrowForwardIcon></ArrowForwardIcon>
+                      </div>
+                      <div className="qDiv" style={useStyles.qDiv}>
+                        <Quest
+                          data={data}
+                          missionId={missionId}
+                          ongoing={data.id === ongoingQuestId}
+                          setOngoingQuestId={setOngoingQuestId}
+                          setShowingOrder={setShowingOrder}
+                          isLast={quests.length === index + 1}
+                        ></Quest>
+                      </div>
                     </div>
-                    <div className="qDiv" style={useStyles.qDiv}>
-                      <Quest
-                        data={data}
-                        ongoing={data.id === ongoingQuestId}
-                      ></Quest>
-                    </div>
-                  </div>
-                </TableCell>
-              </TableRow>
-            ))}
+                  </TableCell>
+                </TableRow>
+              ))}
           </TableBody>
         </Table>
       </TableContainer>
@@ -120,6 +120,7 @@ const useStyles = {
   titleDiv: {
     display: "flex",
     justifyContent: "center",
+    height: StyledTheme.spacing * 4,
     marginTop: StyledTheme.spacing,
   },
   title: {
@@ -137,9 +138,7 @@ const useStyles = {
   tableRow: {
     backgroundColor: "rgba(21, 211, 209, 0.1)",
   },
-  ongoingTableRow: {
-    // backgroundColor: "rgba(21, 211, 209, 0.5)",
-  },
+  ongoingTableRow: {},
   quest: { display: "flex" },
   statusDiv: {
     display: "flex",
@@ -147,7 +146,6 @@ const useStyles = {
     marginLeft: StyledTheme.spacing,
     marginRight: StyledTheme.spacing,
   },
-  qDiv: {},
 };
 
 export default QuestDiv;

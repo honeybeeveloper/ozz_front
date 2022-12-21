@@ -5,10 +5,7 @@ import { Button } from "@mui/material";
 import StyledTheme from "../theme/StyledTheme";
 
 function QuestButton(props) {
-  const { name, disabled, isMain } = props;
-  const handleOnClick = (event) => {
-    console.log("Quest Button Click!");
-  };
+  const { name, disabled, isMain, linkQuestId, onClick } = props;
 
   return (
     <div className="root" style={useStyles.root}>
@@ -20,7 +17,8 @@ function QuestButton(props) {
             : { ...useStyles.common, ...useStyles.questSubButton }
         }
         disabled={disabled}
-        onClick={handleOnClick}
+        onClick={onClick}
+        data-link-quest-id={linkQuestId}
       >
         {name}
       </Button>

@@ -54,7 +54,7 @@ function Mission(props) {
         <KnowhowDiv></KnowhowDiv>
       </div>
       <div className="questDiv" style={useStyles.questDiv}>
-        <QuestDiv></QuestDiv>
+        <QuestDiv missionId={missionId}></QuestDiv>
       </div>
     </div>
   );

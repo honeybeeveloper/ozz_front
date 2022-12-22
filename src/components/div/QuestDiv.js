@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
 
@@ -21,11 +21,18 @@ function QuestDiv(props) {
   const [quests, setQuests] = useState([]);
   const [showingOrder, setShowingOrder] = useState(1);
   const [ongoingQuestId, setOngoingQuestId] = useState(0);
+  const questRef = useRef(null);
+
+  useEffect(() => {
+    if (questRef.current) {
+      questRef.current.scrollIntoView();
+    }
+  }, [ongoingQuestId]);
 
   useEffect(() => {
     if (missionId > 0 && ongoingQuestId === 0) {
       getQuests(missionId);
-      getOngoingQuest(missionId);
+      getInitOngoingQuest(missionId);
     }
   }, [missionId, ongoingQuestId]);
 
@@ -44,7 +51,7 @@ function QuestDiv(props) {
       });
   };
 
-  const getOngoingQuest = (missionId) => {
+  const getInitOngoingQuest = (missionId) => {
     axios
       .get(appConfig.apiRoot + "/user/user-ongoing", {
         params: {
@@ -81,9 +88,10 @@ function QuestDiv(props) {
                   key={data.id}
                   style={
                     data.id === ongoingQuestId
-                      ? useStyles.tableRow
-                      : useStyles.ongoingTableRow
+                      ? useStyles.ongoingTableRow
+                      : useStyles.tableRow
                   }
+                  ref={data.id === ongoingQuestId ? questRef : null}
                 >
                   <TableCell>
                     <div className="quest" style={useStyles.quest}>
@@ -94,7 +102,6 @@ function QuestDiv(props) {
                         <Quest
                           data={data}
                           missionId={missionId}
-                          ongoing={data.id === ongoingQuestId}
                           setOngoingQuestId={setOngoingQuestId}
                           setShowingOrder={setShowingOrder}
                           isLast={quests.length === index + 1}
@@ -135,10 +142,10 @@ const useStyles = {
   questContainer: {
     height: "640px",
   },
-  tableRow: {
+  ongoingTableRow: {
     backgroundColor: "rgba(21, 211, 209, 0.1)",
   },
-  ongoingTableRow: {},
+  tableRow: {},
   quest: { display: "flex" },
   statusDiv: {
     display: "flex",

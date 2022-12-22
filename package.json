@@ -2,6 +2,7 @@
   "name": "platform-frontend",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:5000",
   "dependencies": {
     "@emotion/styled": "^11.10.5",
     "@mui/icons-material": "^5.10.9",

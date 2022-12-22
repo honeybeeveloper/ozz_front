@@ -12,14 +12,7 @@ import QuestButton from "../button/QuestButton";
 import StyledButton from "../button/StyledButton";
 
 function Quest(props) {
-  const {
-    data,
-    missionId,
-    ongoing,
-    setOngoingQuestId,
-    setShowingOrder,
-    isLast,
-  } = props;
+  const { data, missionId, setOngoingQuestId, setShowingOrder, isLast } = props;
   const [existLinkQuestCd, setExistLinkQuestCd] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
 
@@ -28,10 +21,8 @@ function Quest(props) {
   }, [data.link_quest_cd]);
 
   const onHandleQuest = () => {
-    const questStatus = true;
-    const nextQuestOrder = data.quest_order + 1;
-    setIsSuccess(questStatus);
-    setShowingOrder(nextQuestOrder);
+    setIsSuccess(true);
+    setShowingOrder(data.quest_order + 1);
     updateCompleteQuest();
   };
 
@@ -41,7 +32,6 @@ function Quest(props) {
 
   const updateCompleteQuest = () => {
     const status = "S";
-
     axios
       .post(appConfig.apiRoot + "/quest/completion", {
         user_id: 1,
@@ -63,31 +53,35 @@ function Quest(props) {
     <div className="root" style={useStyles.root}>
       <div className="leftDiv" style={useStyles.leftDiv}>
         <div className="questTitleDiv" style={useStyles.questTitleDiv}>
-          <div className="idDiv" style={useStyles.idDiv}>
+          <div className="leftTitle" style={useStyles.leftTitle}>
             <QuestButton
               name={data.quest_cd}
               disabled={true}
               isMain={true}
             ></QuestButton>
-          </div>
-          <div className="titleDiv" style={useStyles.titleDiv}>
             <label className="title" style={useStyles.title}>
               {data.quest_name}
             </label>
           </div>
-          <div className="stampDiv" style={useStyles.stampDiv}>
-            <IconButton
-              className="checkButton"
-              style={
-                isSuccess ? useStyles.successCheckButton : useStyles.checkButton
-              }
-              onClick={onHandleQuest}
-            >
-              <CheckCircleIcon
-                className="checkCircleIcon"
-                style={useStyles.checkCircleIcon}
-              />
-            </IconButton>
+          <div>
+            <div className="stampDiv" style={useStyles.stampDiv}>
+              <label>{"퀘스트 완료"}</label>
+              <IconButton
+                className="checkButton"
+                style={
+                  isSuccess
+                    ? useStyles.successCheckButton
+                    : useStyles.checkButton
+                }
+                onClick={onHandleQuest}
+                disabled={isSuccess}
+              >
+                <CheckCircleIcon
+                  className="checkCircleIcon"
+                  style={useStyles.checkCircleIcon}
+                />
+              </IconButton>
+            </div>
           </div>
         </div>
         <div
@@ -104,7 +98,8 @@ function Quest(props) {
           {existLinkQuestCd && (
             <QuestButton
               name={data.link_quest_cd}
-              disabled={!existLinkQuestCd}
+              // disabled={!existLinkQuestCd}
+              disabled={true}
               isMain={false}
               linkQuestId={data.link_quest_id}
               onClick={handleLinkQuestButton}
@@ -133,7 +128,6 @@ function Quest(props) {
 Quest.propTypes = {
   data: PropTypes.object.isRequired,
   missionId: PropTypes.number.isRequired,
-  ongoing: PropTypes.bool.isRequired,
   setOngoingQuestId: PropTypes.func.isRequired,
   setShowingOrder: PropTypes.func.isRequired,
   isLast: PropTypes.bool.isRequired,
@@ -156,19 +150,18 @@ const useStyles = {
   },
   questTitleDiv: {
     display: "flex",
-    paddingTop: StyledTheme.spacing,
-    paddingRight: StyledTheme.spacing,
-    paddingBottom: StyledTheme.spacing,
+    justifyContent: "space-between",
     paddingLeft: StyledTheme.spacing,
+    paddingTop: StyledTheme.spacing,
+    // paddingRight: StyledTheme.spacing,
+    // paddingBottom: StyledTheme.spacing,
   },
-  idDiv: {},
-  titleDiv: {
+  leftTitle: {
     display: "flex",
     alignItems: "center",
-    width: StyledTheme.spacing * 65,
-    marginLeft: StyledTheme.spacing * 2,
   },
   title: {
+    marginLeft: StyledTheme.spacing * 2,
     fontSize: StyledTheme.spacing * 2,
     fontWeight: "bold",
   },
@@ -194,18 +187,12 @@ const useStyles = {
   buttonDiv: {
     display: "flex",
     justifyContent: "space-between",
-    paddingTop: StyledTheme.spacing,
-    paddingRight: StyledTheme.spacing,
-    paddingBottom: StyledTheme.spacing,
-    paddingLeft: StyledTheme.spacing,
+    padding: StyledTheme.spacing,
   },
   buttonDivEnd: {
     display: "flex",
     justifyContent: "end",
-    paddingTop: StyledTheme.spacing,
-    paddingRight: StyledTheme.spacing,
-    paddingBottom: StyledTheme.spacing,
-    paddingLeft: StyledTheme.spacing,
+    padding: StyledTheme.spacing,
   },
   funcButtonDiv: {
     display: "flex",

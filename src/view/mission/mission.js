@@ -3,7 +3,7 @@ import axios from "axios";
 import PropTypes from "prop-types";
 
 import appConfig from "../../common/AppConfig";
-import { mapMissionType } from "../../common/util";
+import { mapMissionType } from "../../common/Util";
 import { onAxiosError } from "../../common/Error";
 import KnowhowDiv from "../../components/div/KnowhowDiv";
 import MaterialDiv from "../../components/div/MaterialDiv";

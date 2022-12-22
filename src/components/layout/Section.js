@@ -1,6 +1,6 @@
 import React from "react";
 import StyledTheme from "../theme/StyledTheme";
-import Mission from "../../view/mission/mission";
+import Mission from "../../view/mission/Mission";
 
 function Section() {
   return (

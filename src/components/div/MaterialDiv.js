@@ -6,7 +6,7 @@ import appConfig from "../../common/AppConfig";
 import Material from "../component/Material";
 import StyledTheme from "../theme/StyledTheme";
 import { onAxiosError } from "../../common/Error";
-import { groupBy } from "../../common/util";
+import { groupBy } from "../../common/Util";
 
 function MaterialDiv(props) {
   const { missionId } = props;
